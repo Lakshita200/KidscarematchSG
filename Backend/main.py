@@ -1,4 +1,6 @@
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from kidcarematch_backend.api.v1.admin import router as admin_router
 from kidcarematch_backend.api.v1.centres import router as centres_router
@@ -8,6 +10,20 @@ from kidcarematch_backend.api.v1.users import router as users_router
 from kidcarematch_backend.api.v1.watchlist import router as watchlist_router
 
 app = FastAPI()
+
+# Allow the React frontend to communicate with the backend.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://kidscare-match-sg.web.app",
+        "https://kidscare-match-sg.firebaseapp.com",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(users_router)
 app.include_router(centres_router)
