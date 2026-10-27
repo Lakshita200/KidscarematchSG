@@ -1,0 +1,36 @@
+[project]
+name = "kidcarematch-backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Zhi Wei", email = "lumzhiwei@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi[standard]>=0.141.1",
+    "firebase-admin>=7.7.0",
+    "mysqlclient>=2.3.0",
+    "sqlmodel>=0.0.47",
+]
+
+[project.scripts]
+kidcarematch-backend = "kidcarematch_backend:main"
+sync-centres = "kidcarematch_backend.cron.sync_centres:main"
+
+[build-system]
+requires = ["uv_build>=0.12.7,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "pytest-xdist>=3.8.0",
+    "ruff>=0.16.10",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-n auto -p no:cacheprovider"
+
